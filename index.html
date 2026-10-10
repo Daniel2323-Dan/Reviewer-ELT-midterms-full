@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#11172f">
+<meta name="description" content="A mobile-friendly ELT 121 identification and multiple-choice reviewer for Language Policy and Planning.">
+<title>ELT 121 | Language Policy & Planning Reviewer</title>
+<style>
+:root{
+  color-scheme:light;
+  --ink:#17213b;--muted:#73809a;--paper:#f5f7fc;--surface:#fff;--line:#e3e8f2;
+  --purple:#6258ed;--purple-dark:#4940ce;--lav:#eeedff;--mint:#24b88a;
+  --shadow:0 22px 65px rgba(27,39,84,.09);--radius:24px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;background:var(--paper);color:var(--ink);font:16px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
+button,input,select{font:inherit}button{touch-action:manipulation}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #9b96ff;outline-offset:3px}
+.ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:radial-gradient(ellipse at 8% 40%,rgba(133,126,255,.09),transparent 30%),radial-gradient(ellipse at 92% 70%,rgba(54,207,171,.09),transparent 29%)}
+.ambient:before,.ambient:after{content:"";position:absolute;border-radius:50%;filter:blur(2px);opacity:.6;animation:float 16s ease-in-out infinite alternate}
+.ambient:before{width:270px;height:270px;right:-100px;top:24%;background:radial-gradient(circle at 35% 35%,#dcd9ff,rgba(220,217,255,0) 70%)}
+.ambient:after{width:320px;height:320px;left:-180px;bottom:3%;background:radial-gradient(circle at 50% 50%,#c5f5e8,rgba(197,245,232,0) 70%);animation-delay:-6s}
+.hero{position:relative;isolation:isolate;overflow:hidden;padding:28px 24px 112px;color:#fff;background:linear-gradient(125deg,#11172f 0%,#1e2452 55%,#37328e 100%)}
+.hero:before{content:"";position:absolute;z-index:-1;width:490px;height:490px;right:-100px;top:-275px;border-radius:50%;border:1px solid rgba(255,255,255,.12);box-shadow:0 0 0 45px rgba(255,255,255,.025),0 0 0 95px rgba(255,255,255,.02)}
+.hero-inner{max-width:1120px;margin:0 auto;animation:heroIn .7s cubic-bezier(.2,.75,.25,1) both}
+.brand-row{display:flex;align-items:center;gap:13px;margin-bottom:36px}
+.brand-mark{height:43px;min-width:62px;display:flex;align-items:center;justify-content:center;gap:5px;padding:0 9px;border:1px solid rgba(255,255,255,.19);border-radius:13px;background:rgba(255,255,255,.1);font-size:.9rem;font-weight:850;letter-spacing:-.04em;box-shadow:inset 0 1px rgba(255,255,255,.12)}
+.brand-mark span{font-size:.68rem;color:#b9b6ff;background:rgba(255,255,255,.12);padding:3px 4px;border-radius:5px;letter-spacing:0}
+.eyebrow{font-size:.7rem;letter-spacing:.17em;text-transform:uppercase;color:#c1c7ed;font-weight:800}
+.hero h1{max-width:790px;margin:0;font-size:clamp(2.2rem,6vw,4.35rem);line-height:1.05;letter-spacing:-.065em;font-weight:820}
+.hero h1 span{color:#aaa5ff}
+.hero-copy{max-width:610px;margin:18px 0 19px;color:#d7dcf5;font-size:clamp(.98rem,2vw,1.1rem)}
+.hero-meta{display:flex;align-items:center;gap:9px;color:#bdc5e9;font-size:.83rem}
+.hero-meta .spark{display:grid;place-items:center;width:25px;height:25px;border-radius:8px;background:rgba(255,255,255,.11);color:#d5d1ff}
+.layout{position:relative;max-width:1120px;margin:-67px auto 0;padding:0 24px 52px;display:grid;grid-template-columns:265px minmax(0,1fr);grid-template-areas:"sidebar quiz";gap:22px;align-items:start}
+.sidebar{grid-area:sidebar;display:grid;gap:15px;animation:riseIn .65s .08s both}
+.quiz-column{grid-area:quiz;min-width:0;animation:riseIn .65s .16s both}
+.panel{background:rgba(255,255,255,.94);border:1px solid rgba(227,232,242,.95);border-radius:20px;box-shadow:0 12px 36px rgba(27,39,84,.06);backdrop-filter:blur(12px)}
+.session-panel{padding:20px}
+.section-label{display:flex;align-items:center;gap:8px;margin:0 0 15px;color:#7d87a0;font-size:.7rem;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
+.section-label:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--purple);box-shadow:0 0 0 4px #6258ed18}
+.form-label{display:block;margin:0 0 7px;font-size:.8rem;font-weight:750;color:#46516b}
+.select-wrap{position:relative}
+select{width:100%;appearance:none;border:1px solid var(--line);border-radius:12px;padding:12px 38px 12px 12px;background:#f9faff;color:var(--ink);font-size:.9rem;cursor:pointer}
+.select-wrap:after{content:"⌄";position:absolute;right:14px;top:8px;font-size:1.15rem;color:#777f9a;pointer-events:none}
+.sidebar-actions{display:grid;gap:8px;margin-top:12px}
+.btn{position:relative;display:inline-flex;min-height:46px;align-items:center;justify-content:center;gap:9px;padding:11px 15px;border:1px solid transparent;border-radius:12px;font-weight:780;font-size:.9rem;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,background .18s ease,border-color .18s ease,color .18s ease; -webkit-tap-highlight-color:transparent}
+.btn:hover:not(:disabled){transform:translateY(-2px)}.btn:active:not(:disabled){transform:translateY(0) scale(.985)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-primary{color:#fff;background:linear-gradient(135deg,#6d63fb,#5248df);box-shadow:0 9px 19px rgba(93,81,234,.22)}.btn-primary:hover:not(:disabled){box-shadow:0 12px 25px rgba(93,81,234,.3)}
+.btn-soft{color:#4e46c6;background:#f0efff;border-color:#e5e2ff}.btn-soft:hover:not(:disabled){background:#e7e5ff}
+.btn-outline{color:#546079;background:#fff;border-color:var(--line)}.btn-outline:hover:not(:disabled){background:#f8f9fd;border-color:#cbd2e4}
+.btn-icon{font-size:1.08rem;line-height:1}
+.rule{height:1px;background:var(--line);margin:19px 0}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.metric{padding:12px 13px;border-radius:14px;background:#f7f8fd;border:1px solid #eff1f7;min-width:0}
+.metric strong{display:block;font-size:1.55rem;line-height:1.2;letter-spacing:-.05em;font-weight:850;font-variant-numeric:tabular-nums}
+.metric span{color:var(--muted);font-size:.76rem;font-weight:650}
+.metric.correct strong{color:#169b70}.metric.attempted strong{color:var(--purple)}
+.progress-block{margin-top:18px}
+.progress-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:9px;color:#7d87a0;text-transform:uppercase;font-size:.68rem;font-weight:850;letter-spacing:.1em}
+.progress-head strong{font-size:.8rem;letter-spacing:0;color:#5047d1}
+.progress-track{width:100%;height:8px;overflow:hidden;border-radius:999px;background:#e9ecf5}
+.progress-fill{height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#8b82ff,#5f56ed);transition:width .55s cubic-bezier(.2,.75,.25,1);position:relative}
+.progress-fill:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:translateX(-100%);animation:sheen 2.6s ease-in-out infinite}
+.progress-caption{margin-top:8px;color:var(--muted);font-size:.77rem}
+.tip-panel{padding:18px 19px;background:linear-gradient(145deg,#eeedff,#f9f8ff);border-color:#e2e0ff}
+.tip-title{display:flex;align-items:center;gap:8px;font-weight:800;font-size:.88rem;color:#3f3a9f}.tip-icon{display:grid;place-items:center;width:27px;height:27px;background:#fff;border-radius:9px;box-shadow:0 3px 8px #6056da16}
+.tip-panel p{margin:8px 0 0;color:#64658b;font-size:.83rem;line-height:1.55}
+.quiz-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 2px 12px;color:#7b86a0;font-size:.75rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+.quiz-toolbar .mode{display:flex;align-items:center;gap:8px}.live-dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 4px #24b88a1c}
+.q-counter{padding:7px 11px;border:1px solid #e2e5f1;border-radius:999px;background:rgba(255,255,255,.72);font-size:.74rem;letter-spacing:0;color:#69758f;text-transform:none;white-space:nowrap}.q-counter strong{color:#37327d;font-variant-numeric:tabular-nums}
+.quiz-card{position:relative;overflow:hidden;padding:clamp(22px,4vw,38px);border-radius:25px;border:1px solid #e0e5f0;background:rgba(255,255,255,.97);box-shadow:var(--shadow);transition:transform .25s ease,box-shadow .25s ease}
+.quiz-card:before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#827aff,#5d54e9 58%,#75d9bd)}
+.quiz-card.swap{animation:cardSwap .34s cubic-bezier(.2,.75,.25,1)}
+.question-meta{display:flex;align-items:center;gap:10px;margin-bottom:26px}
+.question-number{display:grid;place-items:center;width:40px;height:40px;border-radius:13px;color:#fff;background:linear-gradient(145deg,#8178ff,#554adc);box-shadow:0 7px 17px #6258ed35;font-size:.82rem;font-weight:850;font-variant-numeric:tabular-nums}
+.topic-chip{display:inline-flex;align-items:center;min-height:31px;padding:5px 11px;border-radius:999px;color:#5148c6;background:#f0efff;border:1px solid #e4e1ff;font-size:.74rem;font-weight:780}
+.question-kicker{margin:0 0 9px;color:#9aa2b6;text-transform:uppercase;letter-spacing:.16em;font-size:.68rem;font-weight:850}
+.question{margin:0 0 29px;font-size:clamp(1.32rem,3vw,1.9rem);font-weight:790;letter-spacing:-.04em;line-height:1.3;overflow-wrap:anywhere}
+.answer-label{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px;color:#44516c;font-size:.75rem;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+.answer-label .optional{color:#9aa2b6;font-weight:600;font-size:.72rem;letter-spacing:0;text-transform:none}
+.answer-wrap{display:flex;align-items:center;gap:12px;padding:0 15px;border:1.5px solid #dfe4ef;border-radius:15px;background:#fafbff;transition:border-color .2s ease,box-shadow .2s ease,background .2s ease}
+.answer-wrap:focus-within{border-color:#8d85ff;background:#fff;box-shadow:0 0 0 4px rgba(98,88,237,.11)}
+.answer-symbol{display:grid;place-items:center;flex:none;width:29px;height:29px;border-radius:9px;color:#6258ed;background:#efeeff;font-weight:850}
+.answer{width:100%;min-width:0;height:57px;padding:0;border:0;outline:none!important;background:transparent;color:var(--ink);font-size:1rem;font-weight:600}
+.answer::placeholder{color:#a3abc0;font-weight:450}.answer:disabled{opacity:.78;cursor:not-allowed}
+.answer-help{display:flex;align-items:center;gap:7px;margin:9px 0 0;color:#929bb0;font-size:.77rem}
+.keycap{display:inline-grid;place-items:center;min-width:23px;height:22px;padding:0 5px;border:1px solid #e0e4ee;border-radius:6px;background:#fff;color:#6d7891;font-size:.72rem;font-weight:750;box-shadow:0 1px 0 #e5e8f0}
+.actions{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.95fr);gap:10px;margin-top:24px}
+.actions .btn{min-height:51px}.actions .next-btn{grid-column:1/-1}
+.feedback{display:none;margin-top:20px;padding:15px 16px;border-radius:15px;border:1px solid transparent;line-height:1.45}
+.feedback.show{display:flex;align-items:flex-start;gap:11px;animation:feedbackIn .28s cubic-bezier(.2,.75,.25,1) both}
+.feedback.good{background:#eaf9f2;border-color:#ceefdf;color:#14684e}.feedback.bad{background:#fff0ef;border-color:#ffddda;color:#a52b2b}.feedback.neutral{background:#f0f1ff;border-color:#e0e1ff;color:#444197}
+.feedback-icon{flex:none;display:grid;place-items:center;width:27px;height:27px;border-radius:9px;background:rgba(255,255,255,.8);font-weight:900}
+.feedback-copy{min-width:0;font-size:.9rem}.feedback-copy strong{display:block;margin-bottom:3px;font-weight:850}.answerkey{font-weight:750;margin-top:4px;overflow-wrap:anywhere}
+.footer{margin:17px 4px 0;color:#929bb0;font-size:.76rem;line-height:1.6;text-align:center}
+.complete-icon{display:grid;place-items:center;width:63px;height:63px;margin:0 0 20px;border-radius:21px;background:#e7faf2;color:#14966d;font-size:1.9rem;box-shadow:0 8px 22px #24b88a20;animation:popIn .45s cubic-bezier(.2,.9,.25,1.2) both}
+.completion-score{margin:18px 0 23px;padding:16px;border-radius:15px;background:#f6f7fc;border:1px solid var(--line)}.completion-score strong{font-size:1.8rem;letter-spacing:-.05em;color:#4f46d0}
+@keyframes heroIn{from{opacity:0;transform:translateY(13px)}to{opacity:1;transform:translateY(0)}}
+@keyframes riseIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cardSwap{0%{opacity:.5;transform:translateY(8px) scale(.995)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes feedbackIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes popIn{from{opacity:0;transform:scale(.78) rotate(-8deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes float{from{transform:translate3d(0,0,0)}to{transform:translate3d(24px,-28px,0)}}
+@keyframes sheen{0%,55%{transform:translateX(-100%)}85%,100%{transform:translateX(100%)}}
+@media(min-width:1100px){.hero{padding-top:32px}.brand-row{margin-bottom:40px}}
+@media(max-width:850px){.layout{grid-template-columns:220px minmax(0,1fr);gap:15px;padding-inline:18px}.session-panel{padding:16px}.quiz-card{padding:25px}.hero{padding-inline:22px}.question{font-size:1.45rem}}
+@media(max-width:680px){
+  .hero{padding:22px 18px 96px}.brand-row{margin-bottom:28px}.hero h1{font-size:clamp(2.15rem,10vw,3.15rem)}.hero-copy{font-size:.96rem;max-width:470px;margin:14px 0}.hero-meta{font-size:.76rem;align-items:flex-start}.hero-meta .spark{flex:none}
+  .layout{margin-top:-53px;padding:0 13px 30px;grid-template-columns:minmax(0,1fr);grid-template-areas:"quiz" "sidebar";gap:16px}
+  .quiz-toolbar{margin:0 2px 10px;font-size:.68rem}.q-counter{padding:6px 9px;font-size:.7rem}
+  .quiz-card{border-radius:21px;padding:22px 18px 20px}.question-meta{margin-bottom:20px}.question{font-size:clamp(1.3rem,5.5vw,1.65rem);margin-bottom:25px;line-height:1.34}.answer{height:55px;font-size:16px}.answer-wrap{padding-inline:11px;gap:10px}.actions{grid-template-columns:1fr 1fr;gap:8px;margin-top:21px}.actions .btn{min-height:49px;padding:10px 9px;font-size:.83rem}.actions .next-btn{grid-column:1/-1}
+  .sidebar{grid-template-columns:minmax(0,1fr)}.session-panel{padding:18px}.sidebar-actions{grid-template-columns:1fr 1fr}.sidebar-actions .btn{min-height:43px;padding:9px 7px;font-size:.81rem}.rule{margin:16px 0}.tip-panel{padding:15px 17px}.footer{margin-bottom:6px}
+}
+@media(max-width:380px){.hero{padding-inline:15px}.layout{padding-inline:10px}.brand-row{gap:9px}.eyebrow{font-size:.62rem}.quiz-card{padding:20px 14px 16px}.actions{grid-template-columns:1fr}.actions .next-btn{grid-column:auto}.sidebar-actions{grid-template-columns:1fr}.question{font-size:1.28rem}.q-counter{font-size:.66rem}.quiz-toolbar{letter-spacing:.08em}}
+@media(hover:none){.btn:hover:not(:disabled){transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+.form-label.topic-label{margin-top:15px}
+.choices{display:grid;gap:11px;margin:5px 0 2px;animation:riseIn .22s ease both}
+.choices[hidden]{display:none}
+.choice-option{position:relative;display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:13px 15px;text-align:left;color:var(--ink);background:#fafbff;border:1.5px solid #e0e5f0;border-radius:14px;cursor:pointer;transition:border-color .18s ease,background .18s ease,transform .18s ease,box-shadow .18s ease;overflow-wrap:anywhere}
+.choice-option:hover:not(:disabled){transform:translateY(-1px);border-color:#aaa4ff;background:#f8f7ff}
+.choice-option:focus-visible{outline:3px solid #9b96ff;outline-offset:2px}
+.choice-option:disabled{cursor:default}
+.choice-letter{flex:0 0 30px;width:30px;height:30px;display:grid;place-items:center;border-radius:9px;background:#eef0f8;color:#68738d;font-weight:850;font-size:.78rem;transition:background .18s ease,color .18s ease}
+.choice-text{flex:1;font-weight:650;font-size:.94rem;line-height:1.4}
+.choice-option.selected{border-color:#7970f6;background:#f1f0ff;box-shadow:0 0 0 3px #6258ed12}
+.choice-option.selected .choice-letter{background:#6258ed;color:#fff}
+.choice-option.correct-choice{border-color:#36b58a;background:#effbf6}.choice-option.correct-choice .choice-letter{background:#18966d;color:#fff}
+.choice-option.wrong-choice{border-color:#e78b87;background:#fff5f4}.choice-option.wrong-choice .choice-letter{background:#c94d48;color:#fff}
+.choice-option .choice-mark{font-size:1.05rem;font-weight:900;color:#14976c}
+@media(max-width:680px){.choices{gap:9px}.choice-option{min-height:55px;padding:12px}.choice-text{font-size:.91rem}}
+@media(prefers-reduced-motion:reduce){.choices{animation:none}.choice-option{transition:none}}
+
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"></div>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="brand-row">
+      <div class="brand-mark" aria-label="ELT 121">ELT <span>121</span></div>
+      <span class="eyebrow">Your personal review room</span>
+    </div>
+    <h1>Language Policy <span>&amp; Planning</span></h1>
+    <p class="hero-copy">Practice active recall with identification or multiple choice. Type what you remember or pick an option, then build confidence before the exam.</p>
+    <div class="hero-meta"><span class="spark" aria-hidden="true">✦</span><span>Built from your ELT 121 midterm reviewer · Works offline</span></div>
+  </div>
+</header>
+<main class="layout">
+  <aside class="sidebar" aria-label="Study session controls">
+    <section class="panel session-panel">
+      <h2 class="section-label">Your session</h2>
+      <label class="form-label" for="modeSelect">Question type</label>
+      <div class="select-wrap mode-select-wrap"><select id="modeSelect" aria-label="Choose question type"><option value="identification">Identification · Type answer</option><option value="multiple">Multiple choice · Pick one</option></select></div>
+      <label class="form-label topic-label" for="topic">Choose a topic</label>
+      <div class="select-wrap"><select id="topic"><option value="all">All topics</option></select></div>
+      <div class="sidebar-actions">
+        <button class="btn btn-soft" id="shuffle" type="button"><span class="btn-icon" aria-hidden="true">⤨</span> Mix questions</button>
+        <button class="btn btn-outline" id="reset" type="button"><span class="btn-icon" aria-hidden="true">↻</span> Restart</button>
+      </div>
+      <div class="rule"></div>
+      <div class="metrics" aria-label="Your score summary">
+        <div class="metric correct"><strong id="scoreStat">0</strong><span>Correct</span></div>
+        <div class="metric attempted"><strong id="attemptStat">0</strong><span>Attempted</span></div>
+      </div>
+      <div class="progress-block">
+        <div class="progress-head"><span>Session progress</span><strong id="progressLabel">0%</strong></div>
+        <div class="progress-track" role="progressbar" aria-label="Session progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressTrack"><div class="progress-fill" id="bar"></div></div>
+        <div class="progress-caption" id="status">Question 1</div>
+      </div>
+    </section>
+    <section class="panel tip-panel">
+      <div class="tip-title"><span class="tip-icon" aria-hidden="true">✦</span> Small study tip</div>
+      <p>There are 144 questions in the bank. Switch between identification and multiple choice whenever you want to practice a different way.</p>
+    </section>
+  </aside>
+  <section class="quiz-column" aria-label="Language policy and planning quiz">
+    <div class="quiz-toolbar"><span class="mode"><span class="live-dot" aria-hidden="true"></span><span id="modeLabel">Identification mode</span></span><span class="q-counter">Question <strong id="qIndex">1</strong> <span aria-hidden="true">/</span> <strong id="qTotal">144</strong></span></div>
+    <section class="panel quiz-card" id="quizCard" aria-live="polite" aria-atomic="false">
+      <div class="question-meta"><span class="question-number" id="questionNumber">01</span><span class="topic-chip" id="category">Foundations</span></div>
+      <p class="question-kicker" id="questionKicker">Name the term or theorist</p>
+      <h2 class="question" id="prompt"></h2>
+      <label class="answer-label" id="answerLabel" for="answer"><span>Your answer</span><span class="optional">Type it in your own words</span></label>
+      <div class="answer-wrap"><span class="answer-symbol" aria-hidden="true">↳</span><input class="answer" id="answer" type="text" autocomplete="off" autocapitalize="sentences" spellcheck="false" enterkeyhint="done" placeholder="Start typing here…" aria-describedby="answerHelp"></div>
+      <div class="answer-help" id="answerHelp"><span class="keycap" aria-hidden="true">↵</span> Press Enter to check your answer</div>
+      <div class="choices" id="choices" role="group" aria-label="Multiple-choice options" hidden></div>
+      <div class="actions">
+        <button class="btn btn-primary" id="check" type="button"><span aria-hidden="true">✓</span> Check answer</button>
+        <button class="btn btn-outline" id="reveal" type="button"><span aria-hidden="true">◉</span> Reveal answer</button>
+        <button class="btn btn-soft next-btn" id="next" type="button" disabled>Next question <span aria-hidden="true">→</span></button>
+      </div>
+      <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+    </section>
+    <p class="footer">ELT 121 · Language Policy and Planning<br>Self-study tool only. Check your class materials if you need to confirm a definition.</p>
+  </section>
+</main>
+<script>
+const questions = [
+{t:"Foundations",q:"Who described language policy as a social construct based on belief systems, attitudes, myths, and linguistic culture?",a:["Harold F. Schiffman","Schiffman"],e:"Harold F. Schiffman"},
+{t:"Foundations",q:"Who connected language policy with institutionalizing language as a basis for distinctions among social groups and maintaining dominant-group hegemony?",a:["James W. Tollefson","Tollefson"],e:"James W. Tollefson"},
+{t:"Foundations",q:"Who stated that a language policy is a body of ideas, laws, regulations, rules, and practices intended to achieve planned language change?",a:["Kaplan and Baldauf","Kaplan & Baldauf"],e:"Kaplan and Baldauf"},
+{t:"Foundations",q:"Who identified three components of a speech community’s language policy: practices, beliefs/ideology, and language intervention or management?",a:["Bernard Spolsky","Spolsky"],e:"Bernard Spolsky"},
+{t:"Foundations",q:"What term describes something created or existing because of mutual agreement within a community rather than being naturally formed?",a:["Social construct","Social construction"],e:"Social construct"},
+{t:"Foundations",q:"What term refers to what people think is right or true about language?",a:["Belief systems","Belief system"],e:"Belief systems"},
+{t:"Foundations",q:"What term describes how people feel toward a language or its speakers?",a:["Attitude","Language attitude"],e:"Attitude"},
+{t:"Foundations",q:"What term describes ideas people believe even when they may be proven untrue?",a:["Myths","Myth"],e:"Myths"},
+{t:"Foundations",q:"What is the whole set of ideas, habits, and feelings a group has about language called?",a:["Linguistic culture"],e:"Linguistic culture"},
+{t:"Foundations",q:"Sino ang lovey dovey ni Genesis?",a:["John Daniel Paroligan","Daniel","Danielito"],e:"John Daniel Paroligan (Daniel or Danielito)"},
+{t:"Types of Policy",q:"What type of policy is developed at the macro level by a governing or authoritative body?",a:["Top-down","Top down"],e:"Top-down policy"},
+{t:"Types of Policy",q:"What type of policy is grassroots-generated for and by the community it affects?",a:["Bottom-up","Bottom up"],e:"Bottom-up policy"},
+{t:"Types of Policy",q:"What is a policy called when it is openly expressed in written or spoken policy texts?",a:["Overt"],e:"Overt"},
+{t:"Types of Policy",q:"What is a policy called when it is intentionally concealed or not openly acknowledged?",a:["Covert"],e:"Covert"},
+{t:"Types of Policy",q:"What describes a policy officially documented in written or spoken policy texts?",a:["Explicit"],e:"Explicit"},
+{t:"Types of Policy",q:"What describes a policy that occurs without or despite official policy text?",a:["Implicit"],e:"Implicit"},
+{t:"Types of Policy",q:"What Latin term means policy 'in law' and refers to officially documented policy?",a:["De jure","Dejure"],e:"De jure"},
+{t:"Types of Policy",q:"What term refers to policy 'in practice,' including practices that may differ from official rules?",a:["De facto","Defacto"],e:"De facto"},
+{t:"Language Planning",q:"What type of planning changes a language’s form through standardization, graphization, and modernization?",a:["Corpus planning"],e:"Corpus planning"},
+{t:"Language Planning",q:"What type of planning changes a language’s functions to elevate prestige and increase its uses?",a:["Status planning"],e:"Status planning"},
+{t:"Language Planning",q:"What type of planning focuses on language learning and acquisition?",a:["Acquisition planning"],e:"Acquisition planning"},
+{t:"Language Planning",q:"In Haugen’s steps, what is the step of choosing a language variety or form for a particular context?",a:["Selection of a norm","Selection of norms","Selection"],e:"Selection of a norm"},
+{t:"Language Planning",q:"In Haugen’s steps, what is the step of spreading a selected language form so people learn and use it?",a:["Implementation"],e:"Implementation"},
+{t:"Language Planning",q:"In Haugen’s steps, what is the development of an explicit, usually written form such as spelling rules and grammar?",a:["Codification"],e:"Codification"},
+{t:"Language Planning",q:"In Haugen’s steps, what refers to continued linguistic reforms, adding new words and adapting a language for modern life?",a:["Elaboration"],e:"Elaboration"},
+{t:"Language Planning",q:"What term means preparing a normative orthography, grammar, and dictionary to guide speakers and writers?",a:["Language planning"],e:"Language planning"},
+{t:"Goals and Motivations",q:"What goal of language policy involves restoring or bringing back a language?",a:["Language revival","Language revitalization","Language reversal"],e:"Language revival / revitalization / reversal"},
+{t:"Goals and Motivations",q:"What goal involves maintaining linguistic consistency and standards, often through prescriptive grammars and dictionaries?",a:["Language purification","Language puriﬁcation"],e:"Language purification"},
+{t:"Goals and Motivations",q:"What goal expands a language’s capacity to express new concepts in technology and other fields?",a:["Lexical modernization"],e:"Lexical modernization"},
+{t:"Goals and Motivations",q:"What goal aims to preserve a language?",a:["Language maintenance"],e:"Language maintenance"},
+{t:"Goals and Motivations",q:"What independence-oriented process builds a language away from another language to distinguish it?",a:["Ausbau"],e:"Ausbau"},
+{t:"Goals and Motivations",q:"What interdependence-oriented process brings languages closer rather than distancing them?",a:["Einbau"],e:"Einbau"},
+{t:"Policy Orientations",q:"Which Ruiz orientation views language as a problem and may involve assimilation or transitional policies?",a:["Language as a problem","Problem"],e:"Language as a problem"},
+{t:"Policy Orientations",q:"Which Ruiz orientation treats language learning and maintenance as a human entitlement?",a:["Language as right","Language as a right","Right"],e:"Language as a right"},
+{t:"Policy Orientations",q:"Which Ruiz orientation views linguistic diversity and multilingualism as an advantage?",a:["Language as resource","Language as a resource","Resource"],e:"Language as a resource"},
+{t:"Critical Language Policy",q:"What approach challenges the idea that language planning is neutral science and asks who benefits and who is disadvantaged?",a:["Critical language policy","CLP"],e:"Critical language policy (CLP)"},
+{t:"Critical Language Policy",q:"What method examines agents, contexts, and processes across the multiple layers of language-policy creation, interpretation, and appropriation?",a:["Ethnography of language policy"],e:"Ethnography of language policy"},
+{t:"Critical Language Policy",q:"What term describes organized efforts to reverse the decline of a language as speakers shift to larger or dominant languages?",a:["Reversing language shift","RLS"],e:"Reversing language shift (RLS)"},
+{t:"Critical Language Policy",q:"What term describes the spread of colonial languages, especially English, resulting in a hierarchy among languages?",a:["Linguistic imperialism"],e:"Linguistic imperialism"},
+{t:"Critical Language Policy",q:"What term refers to ideologies, structures, and practices that legitimize unequal power and resources based on language?",a:["Linguicism"],e:"Linguicism"},
+{t:"Language Ecology & Ideology",q:"What framework views languages as interconnected, values linguistic diversity, and seeks to maintain and protect languages?",a:["Ecology-of-language paradigm","Language ecology paradigm"],e:"Ecology-of-language paradigm"},
+{t:"Language Ecology & Ideology",q:"What paradigm emphasizes the spread of English and gives greater attention to English than to other languages?",a:["Diffusion-of-English paradigm"],e:"Diffusion-of-English paradigm"},
+{t:"Language Ecology & Ideology",q:"What ideology promotes a dominant language so people can function in that language?",a:["Linguistic assimilation","Assimilation"],e:"Linguistic assimilation"},
+{t:"Language Ecology & Ideology",q:"What ideology promotes and develops an Indigenous or local language for official or educational use?",a:["Vernacularization"],e:"Vernacularization"},
+{t:"Language Ecology & Ideology",q:"What ideology recognizes, maintains, and allows multiple languages to coexist?",a:["Linguistic pluralism","Pluralism"],e:"Linguistic pluralism"},
+{t:"Language Ecology & Ideology",q:"What ideology promotes a non-native or global language for wider communication, education, or development?",a:["Internationalization"],e:"Internationalization"},
+{t:"Educational Language Policy",q:"What term describes the choices available to educators and their agency in shaping language practices?",a:["Language education policies","Language education policy"],e:"Language education policies"},
+{t:"Educational Language Policy",q:"What term covers official and unofficial policies across levels that affect language use in classrooms and schools?",a:["Educational language policy"],e:"Educational language policy"},
+{t:"Educational Language Policy",q:"In the reviewer’s framing, what do we call the process in which policy actors take policy elements and make them their own?",a:["Appropriation"],e:"Appropriation"},
+{t:"Educational Language Policy",q:"What metaphor illustrates the multiple layers through which language policy develops?",a:["LPP onion","Onion metaphor","Language planning and policy onion"],e:"LPP onion"},
+{t:"Educational Language Policy",q:"What term describes people with potentially powerful influence on the language-policy process?",a:["Language policy arbiters","Arbiters"],e:"Language policy arbiters"},
+{t:"Inclusion & Exclusion",q:"Which exclusion practice stigmatizes people because they do not conform to the dominant language expectations?",a:["Shaming"],e:"Shaming"},
+{t:"Inclusion & Exclusion",q:"Which exclusion process treats language minorities as outsiders when they do not conform linguistically?",a:["Othering"],e:"Othering"},
+{t:"Inclusion & Exclusion",q:"Which exclusion practice attempts to erase or suppress the voices of other groups?",a:["Silencing"],e:"Silencing"},
+{t:"Foundations",q:"According to the reviewer, what does language policy regulate through claims about legitimate and illegitimate language forms and uses?",a:["Language status and use", "Language status", "Language use"],e:"Language status and use"},
+{t:"Foundations",q:"What does the reviewer say is less common than discussions of language policy in terms of types, goals, or examples?",a:["Concrete definitions", "Definitions"],e:"Concrete definitions"},
+{t:"Foundations",q:"Which relationship between language planning and language policy is associated with Kaplan and Baldauf (1997)?",a:["Language planning subsumes language policy", "Planning subsumes policy"],e:"Language planning subsumes language policy"},
+{t:"Foundations",q:"Which relationship between language planning and language policy is associated with Schiffman (1996)?",a:["Language policy subsumes language planning", "Policy subsumes planning"],e:"Language policy subsumes language planning"},
+{t:"Foundations",q:"According to Hornberger (2006), what happened to the fields of language planning and language policy?",a:["They coalesced into one field", "They coalesced"],e:"They coalesced into one field"},
+{t:"Foundations",q:"In the reviewer, language policy can include rules and practices that regulate language use even when they are what?",a:["Unplanned or unintentional", "Not intentional or planned"],e:"Unplanned or unintentional"},
+{t:"Foundations",q:"What kind of opportunity can official language regulations influence, according to the definition in the reviewer?",a:["Economic, political, and educational opportunity", "Economic, political, educational opportunity"],e:"Economic, political, and educational opportunity"},
+{t:"Foundations",q:"What three broad elements are included in the reviewer’s definition of language policy alongside official regulations?",a:["Unofficial mechanisms; processes; policy texts and discourses", "Unofficial mechanisms, processes, texts and discourses"],e:"Unofficial mechanisms, processes, and policy texts/discourses"},
+{t:"Foundations",q:"In Schiffman’s explanation, what is the sum total of ideas, values, beliefs, attitudes, prejudices, religious strictures, and other cultural baggage called?",a:["Linguistic culture", "Linguistic culture"],e:"Linguistic culture"},
+{t:"Aims of LPP",q:"What is one aim of language planning and policy involving a common lingua franca?",a:["Preserve national unity", "National unity"],e:"Preserve national unity through a common lingua franca"},
+{t:"Aims of LPP",q:"What global advantage do some language policies aim to help learners gain through English skills?",a:["Competitive advantage", "Competitive advantage in a global world"],e:"Competitive advantage in a global world"},
+{t:"Aims of LPP",q:"What kind of languages may language policy aim to create spaces for fostering and using?",a:["Minority and Indigenous languages", "Indigenous and minority languages"],e:"Minority and Indigenous languages"},
+{t:"Types of Policy",q:"What is a macro-level policy created by a governing or authoritative body called in the reviewer’s classification?",a:["Genesis", "Top-down"],e:"Genesis (top-down policy type)"},
+{t:"Types of Policy",q:"Which policy type is generated at the grassroots level by and for the affected community?",a:["Bottom-up", "Grassroots-generated policy"],e:"Bottom-up policy"},
+{t:"Types of Policy",q:"Which policy documentation category means the policy is officially documented in written or spoken policy texts?",a:["Explicit", "Explicit policy"],e:"Explicit policy"},
+{t:"Types of Policy",q:"Which category describes a policy that is intentionally concealed at the macro level or subversive at the micro level?",a:["Covert", "Covert policy"],e:"Covert policy"},
+{t:"Types of Policy",q:"What term distinguishes policy as officially written law from what actually happens in practice?",a:["De jure and de facto", "De jure / de facto"],e:"De jure and de facto"},
+{t:"Types of Policy",q:"A written school regulation explicitly stating that English must be used is what kind of policy?",a:["Explicit", "De jure", "Overt"],e:"Explicit policy"},
+{t:"Types of Policy",q:"Teachers expect English on the playground even though there is no written rule. The unwritten expectation is what?",a:["Implicit", "Covert"],e:"Implicit policy"},
+{t:"Types of Policy",q:"A policy is known to everyone and openly followed. What policy characteristic does that demonstrate?",a:["Overt"],e:"Overt"},
+{t:"Language Planning",q:"In what decade was early language-planning scholarship established, according to the reviewer?",a:["Early 1960s", "1960s"],e:"The early 1960s"},
+{t:"Language Planning",q:"What language resources were early language-planning scholars encouraged to develop for Indigenous languages?",a:["Grammars, writing systems, and dictionaries", "Grammars, writing systems, dictionaries"],e:"Grammars, writing systems, and dictionaries"},
+{t:"Language Planning",q:"Which corpus-planning process standardizes language forms?",a:["Standardization"],e:"Standardization"},
+{t:"Language Planning",q:"Which corpus-planning process develops a writing system?",a:["Graphization", "Graphisation"],e:"Graphization"},
+{t:"Language Planning",q:"Which corpus-planning process expands or updates language forms to meet modern needs?",a:["Modernization", "Modernisation"],e:"Modernization"},
+{t:"Language Planning",q:"Which planning type asks which language should be official or used in schools and media?",a:["Status planning"],e:"Status planning"},
+{t:"Language Planning",q:"According to Rubin (1977), language planning means what kind of language change?",a:["Deliberate language change", "Deliberate and organized language change"],e:"Deliberate language change"},
+{t:"Language Planning",q:"In Haugen’s model, what step involves choosing which language or form becomes official for a context?",a:["Selection of a norm", "Selection of norms"],e:"Selection of a norm"},
+{t:"Language Planning",q:"In Haugen’s model, what step creates spelling rules, grammar, dictionaries, or writing systems?",a:["Codification"],e:"Codification"},
+{t:"Language Planning",q:"In Haugen’s model, what step involves teaching, spreading, and encouraging people to use a selected language form?",a:["Implementation"],e:"Implementation"},
+{t:"Language Planning",q:"Which Haugen step involves adding new words and adapting a language for modern life?",a:["Elaboration"],e:"Elaboration"},
+{t:"Goals and Motivations",q:"Which language-policy goal changes spelling, orthography, lexicon, or grammar to facilitate language use?",a:["Language reform"],e:"Language reform"},
+{t:"Goals and Motivations",q:"Which language-policy goal develops standards for effective communication, often through pedagogical grammars and dictionaries?",a:["Language standardization", "Standardization"],e:"Language standardization"},
+{t:"Goals and Motivations",q:"Which language-policy goal attempts to increase the number of speakers, usually by shifting speakers to another language?",a:["Language spread"],e:"Language spread"},
+{t:"Goals and Motivations",q:"What is the development of equivalent terminology across areas such as medicine, science, aviation, and technology called?",a:["Terminology unification", "Term planning"],e:"Terminology unification (term planning)"},
+{t:"Goals and Motivations",q:"Which goal makes texts more readable and less complex in vocabulary and syntax?",a:["Stylistic simplification"],e:"Stylistic simplification"},
+{t:"Goals and Motivations",q:"Which language-policy goal facilitates communication between members of different speech communities?",a:["Interlingual communication"],e:"Interlingual communication"},
+{t:"Goals and Motivations",q:"What type of standardization includes signs for the deaf, place names, and rules of transliteration and transcription?",a:["Auxiliary code standardization"],e:"Auxiliary code standardization"},
+{t:"Goals and Motivations",q:"Which independence-oriented motivation aims to make a language distinctively one’s own?",a:["Uniqueness"],e:"Uniqueness"},
+{t:"Goals and Motivations",q:"Which independence-oriented motivation is driven by fear that a language is being contaminated?",a:["Purification"],e:"Purification"},
+{t:"Goals and Motivations",q:"Which independence-oriented motivation tries to keep a language close to its classical source?",a:["Classicization", "Classicisation"],e:"Classicization"},
+{t:"Goals and Motivations",q:"Which interdependence-oriented motivation brings people from similar regions together?",a:["Regionalization", "Regionalisation"],e:"Regionalization"},
+{t:"Goals and Motivations",q:"Which interdependence-oriented motivation favors popular usage and can bring languages closer together?",a:["Vernacularization", "Vernacularisation"],e:"Vernacularization"},
+{t:"Policy Orientations",q:"Which orientation allocates government or agency resources to support official use of minority languages?",a:["Promotion-oriented", "Promotion"],e:"Promotion-oriented policy"},
+{t:"Policy Orientations",q:"Which orientation makes short-term resource allocations without intending to expand minority-language use broadly?",a:["Expediency-oriented", "Expediency"],e:"Expediency-oriented policy"},
+{t:"Policy Orientations",q:"Which orientation is characterized by the absence of state intervention in a language minority’s linguistic life?",a:["Tolerance-oriented", "Tolerance"],e:"Tolerance-oriented policy"},
+{t:"Policy Orientations",q:"Which orientation uses legal prohibitions or curtails the use of minority languages?",a:["Restrictive-oriented", "Restrictive"],e:"Restrictive-oriented policy"},
+{t:"Policy Orientations",q:"Which orientation reflects a significant absence of policy recognizing minority languages or varieties?",a:["Null policies", "Null policy"],e:"Null policies"},
+{t:"Policy Orientations",q:"Which orientation actively seeks to eradicate minority languages?",a:["Repression-oriented", "Repression"],e:"Repression-oriented policy"},
+{t:"Policy Orientations",q:"What Ruiz orientation describes transitional policies that seek linguistic and cultural assimilation?",a:["Language as a problem", "Problem"],e:"Language as a problem"},
+{t:"Policy Orientations",q:"Under Ruiz’s orientations, which view supports learning a dominant language while maintaining the mother tongue?",a:["Language as right", "Language as a right"],e:"Language as a right"},
+{t:"Policy Orientations",q:"Under the reviewer’s educational policy table, which orientation is associated with two-way additive programs?",a:["Promotion"],e:"Promotion"},
+{t:"Policy Orientations",q:"Which program type is paired with a null policy orientation in the educational language policy table?",a:["Submersion (ESL)", "Submersion"],e:"Submersion (ESL)"},
+{t:"Policy Orientations",q:"Which policy orientation is associated with sheltered immersion / ESL in the table?",a:["Restrictive"],e:"Restrictive"},
+{t:"Policy Orientations",q:"Which educational program is listed with repression-oriented policy?",a:["BIA boarding School", "BIA boarding school"],e:"BIA boarding school"},
+{t:"Critical Language Policy",q:"What approach rejects the idea that language-planning science can be separated from sociopolitical and ideological implications?",a:["Critical language policy", "CLP"],e:"Critical language policy (CLP)"},
+{t:"Critical Language Policy",q:"According to the historical-structural approach, successfully implemented plans are presumed to serve whose interests?",a:["Dominant class interests", "Dominant groups"],e:"Dominant class interests"},
+{t:"Critical Language Policy",q:"What is a central goal of critical language policy regarding inequality and minority languages?",a:["Develop more democratic policies that reduce inequality and maintain minority languages", "Reduce inequality and protect minority languages"],e:"Develop more democratic policies that reduce inequality and support minority-language maintenance"},
+{t:"Critical Language Policy",q:"What research approach began with Hornberger’s 1988 ethnographic study of Quechua and bilingual education in Peru?",a:["Ethnography of language policy"],e:"Ethnography of language policy"},
+{t:"Critical Language Policy",q:"Which group’s rights are especially emphasized by ethnography of language policy in the reviewer?",a:["Indigenous and minority language speakers", "Minority and Indigenous language speakers"],e:"Indigenous and minority language speakers"},
+{t:"Critical Language Policy",q:"What does reversing language shift try to improve for languages with a negative balance of users and uses?",a:["Their sociolinguistic circumstances", "Sociolinguistic circumstances"],e:"The sociolinguistic circumstances of languages undergoing shift"},
+{t:"Critical Language Policy",q:"According to the reviewer, what can occur when Indigenous or minority children are educated only in a dominant language?",a:["Linguistic genocide", "Linguistic genocide in formal education"],e:"Linguistic genocide in formal education"},
+{t:"Critical Language Policy",q:"What term names unfair treatment or unequal allocation of power and resources based on language?",a:["Linguicism"],e:"Linguicism"},
+{t:"Language Ecology & Ideology",q:"What does a language-ecology perspective emphasize protecting?",a:["All languages and linguistic diversity", "All languages"],e:"All languages and linguistic diversity"},
+{t:"Language Ecology & Ideology",q:"What ideology is challenged by multilingual policies when it assumes one nation should have only one language?",a:["One nation-one language ideology", "One nation, one language"],e:"The “one nation–one language” ideology"},
+{t:"Language Ecology & Ideology",q:"According to the reviewer, what three things should languages be able to do within an ecosystem?",a:["Live and evolve; interact with their environments; receive support to avoid endangerment", "Evolve, interact, and be supported"],e:"Live and evolve, interact with their environments, and receive support against endangerment"},
+{t:"Language Ecology & Ideology",q:"What potential weakness of biomorphic metaphors about language ecosystems is noted in the reviewer?",a:["They may enumerate, objectify, and biologize languages", "They may oversimplify languages"],e:"They may enumerate, objectify, and biologize languages"},
+{t:"Educational Language Policy",q:"Where can language policy be created, interpreted, appropriated, and enacted according to the reviewer?",a:["Across national, school, classroom, and community layers", "Across multiple institutional layers"],e:"Across national, school, classroom, and community layers"},
+{t:"Educational Language Policy",q:"What key agency do educators have in educational language policy?",a:["They interpret and appropriate top-down policies", "They interpret and appropriate policy"],e:"Educators interpret and appropriate top-down policies"},
+{t:"Educational Language Policy",q:"What can a teacher do when policy allows room for pedagogical decisions and learners need help understanding a concept?",a:["Use the learner’s home language strategically", "Use the home language"],e:"Use the learner’s home language strategically"},
+{t:"Educational Language Policy",q:"Why may a national multilingual language policy fail to become multilingual classroom practice?",a:["Implementation gaps, changing policy, and community language attitudes", "Implementation gap and language attitudes"],e:"Implementation gaps, changing policy, and community language attitudes"},
+{t:"Educational Language Policy",q:"What does “appropriation” highlight about people involved in a policy process?",a:["They take policy elements and make them their own", "Making policy their own"],e:"Policy actors take elements of policy and make them their own"},
+{t:"Educational Language Policy",q:"In the LPP onion metaphor, who is placed at the center of language-policy practice in the reviewer?",a:["The classroom practitioner", "Teacher"],e:"The classroom practitioner"},
+{t:"Educational Language Policy",q:"Why are top-down and bottom-up labels considered relative in the reviewer?",a:["A policy’s position depends on the observer’s role and level", "They depend on the observer’s level"],e:"They depend on the observer’s role and level"},
+{t:"Educational Language Policy",q:"What is one way teachers can resist a disempowering top-down language policy?",a:["Interpret or appropriate it creatively and use implementational spaces", "Creative appropriation"],e:"Interpret or appropriate it creatively and use implementational spaces"},
+{t:"Inclusion & Exclusion",q:"What are the three language-policy-for-exclusion processes listed in the reviewer?",a:["Shaming, othering, and silencing"],e:"Shaming, othering, and silencing"},
+{t:"Inclusion & Exclusion",q:"What are the three language-policy-for-inclusion responses listed in the reviewer?",a:["Bilingualism/multilingualism, language teaching, diversity and pluralism", "Multilingualism, language teaching, diversity and pluralism"],e:"Bilingualism/multilingualism, language teaching, and diversity/pluralism"},
+{t:"Inclusion & Exclusion",q:"What is one approach to inclusion that officially accepts more than one language?",a:["Bilingualism or multilingualism", "Multilingualism"],e:"Bilingualism or multilingualism"},
+{t:"Inclusion & Exclusion",q:"What language-policy approach advocates nonsexist language, noted as becoming a norm in the 1970s and 1980s?",a:["Diversity and pluralism", "Pluralism"],e:"Diversity and pluralism"},
+{t:"Inclusion & Exclusion",q:"What may replace direct exclusion by force when language minorities do not conform to dominant linguistic expectations?",a:["Other systems that exclude those who do not conform linguistically", "Linguistic othering"],e:"Othering through systems that penalize linguistic nonconformity"},
+{t:"History / Philippine contexts",q:"Which language was promoted for public education during the American colonial period in the reviewer’s group-work guide?",a:["English"],e:"English"},
+{t:"History / Philippine contexts",q:"Which languages are highlighted for the post-independence bilingual education policy period?",a:["Filipino and English", "Filipino + English"],e:"Filipino and English"},
+{t:"History / Philippine contexts",q:"What language-education approach is the focus of the reviewer’s final historical group?",a:["Mother Tongue-Based Multilingual Education", "MTB-MLE", "Mother tongue"],e:"Mother Tongue-Based Multilingual Education (MTB-MLE)"},
+{t:"History / Philippine contexts",q:"During the Spanish colonial period, what two themes are highlighted in the reviewer’s group-work guide?",a:["Spanish and religious instruction", "Spanish, religious instruction"],e:"Spanish and religious instruction"},
+{t:"History / Philippine contexts",q:"Which period is associated with promotion of Tagalog and the national language in the reviewer’s group-work guide?",a:["Commonwealth/Japanese Period", "Commonwealth and Japanese period"],e:"Commonwealth/Japanese period"},
+{t:"History / Philippine contexts",q:"What 19th-century education policy/event is specifically named for the Spanish colonial period group?",a:["Education Act of 1863"],e:"Education Act of 1863"},
+{t:"History / Philippine contexts",q:"Which bilingual education initiative in Peru is mentioned as an example that opened space for multilingual education?",a:["Puno bilingual education project", "PEEB"],e:"The Puno bilingual education project (PEEB)"},
+{t:"History / Philippine contexts",q:"Which 1994 initiative in Bolivia is listed as an example of national multilingual policy opening space for minority languages?",a:["Bolivia’s National Education Reform of 1994", "National Education Reform of 1994"],e:"Bolivia’s National Education Reform of 1994"},
+{t:"History / Philippine contexts",q:"Which law from 1987 in New Zealand is cited in the reviewer as an example related to Indigenous language support?",a:["Māori Language Act of 1987", "Maori Language Act"],e:"Māori Language Act of 1987"},
+{t:"History / Philippine contexts",q:"What is one central question for analyzing a historical language policy in the reviewer’s guide?",a:["Which languages were promoted and which were given less importance", "Which languages were promoted or marginalized"],e:"Which languages were promoted and which were given less importance"}
+];
+
+// Expanded question bank based on the updated five-page reviewer.
+questions.push(...([["Foundations","Who characterized language policy as a complex sociocultural process mediated by relations of power?",["Teresa McCarty","McCarty"],"Teresa McCarty"],["Foundations","According to the reviewer, what does language-regulating power help govern?",["Language statuses and uses","Statuses and uses of language"],"Language statuses and uses"],["Foundations","What two kinds of language forms and uses may language policy mark as legitimate or illegitimate?",["Language forms and uses","Forms and uses"],"Language forms and uses"],["Foundations","Which four aspects of language can a language-policy mechanism affect?",["Structure, function, use, and acquisition","Structure function use acquisition"],"Structure, function, use, and acquisition"],["Foundations","What two broad forms can language-policy mechanisms take, according to the definition in the reviewer?",["Official regulations and unofficial mechanisms","Official and unofficial mechanisms"],"Official regulations and unofficial mechanisms"],["Foundations","What does describing policy as a verb rather than a noun emphasize?",["Policy as a process","Processes of policy creation interpretation appropriation and instantiation"],"Policy as a process"],["Foundations","According to Kaplan and Baldauf, language planning leads to or is directed by what?",["The promulgation of a language policy","Promulgation of a language policy","Language policy"],"The promulgation of a language policy"],["Foundations","Which scholar's view in the reviewer has language policy subsuming language planning?",["Harold F. Schiffman","Schiffman"],"Harold F. Schiffman"],["Types of Policy","A school rule is formally written and openly communicated. Which two policy characteristics does this illustrate?",["Overt and explicit","Explicit and overt"],"Overt and explicit"],["Types of Policy","A rule is neither written nor openly discussed, but teachers expect students to follow it. Which two characteristics fit?",["Covert and implicit","Implicit and covert"],"Covert and implicit"],["Types of Policy","What axis of policy types distinguishes a governing body's macro-level policy from grassroots community policy?",["Genesis","Policy genesis"],"Genesis"],["Types of Policy","What is the key distinction between de jure and de facto policy?",["Policy in law versus policy in practice","In law versus in practice"],"Policy in law versus policy in practice"],["Types of Policy","What can de facto language practices do even when official de jure policy says something different?",["Differ from official policy","Reflect or differ from de jure policy","Differ from de jure policy"],"Differ from official policy"],["Types of Policy","Which pair of policy characteristics can overlap when a policy is documented and openly communicated?",["Overt and explicit","Explicit and overt"],"Overt and explicit"],["Language Planning","In which decade did early language-planning scholarship become established, according to the reviewer?",["The early 1960s","1960s","Early 1960s"],"The early 1960s"],["Language Planning","What types of language resources did early language-planning scholars work to develop for Indigenous languages?",["Grammars, writing systems, and dictionaries","Grammars writing systems dictionaries"],"Grammars, writing systems, and dictionaries"],["Language Planning","Which type of planning is most directly associated with developing a language's writing system and standard forms?",["Corpus planning"],"Corpus planning"],["Language Planning","Which kind of planning is concerned with language learning and acquisition?",["Acquisition planning"],"Acquisition planning"],["Language Planning","Which scholar is associated in the reviewer with introducing acquisition planning in 1989?",["Cooper","Robert Cooper"],"Cooper"],["Language Planning","In Haugen's model, which step is exemplified by choosing a dominant local language as the medium of instruction in early grades?",["Selection of a norm","Selection of norms"],"Selection of a norm"],["Language Planning","In Haugen's model, which step is exemplified by developing official spelling rules, a grammar guide, and a dictionary?",["Codification"],"Codification"],["Aims of LPP","Which aim of language planning and policy seeks to preserve national unity through a common lingua franca?",["Preserve national unity","National unity through a common lingua franca"],"Preserve national unity through a common lingua franca"],["Aims of LPP","Which aim of LPP in the reviewer relates English skills to a competitive global world?",["Help learners gain a competitive advantage","Competitive advantage in a global world"],"Help learners gain a competitive advantage in a global world"],["Aims of LPP","Which aim of LPP seeks to create spaces for using minority and Indigenous languages?",["Create spaces for minority and Indigenous languages","Support minority and Indigenous languages"],"Create spaces for minority and Indigenous languages"],["Goals and Motivations","Which language-policy goal changes orthography, spelling, lexicon, or grammar to facilitate language use?",["Language reform"],"Language reform"],["Goals and Motivations","Which goal develops equivalent terminology across geographic areas and fields such as medicine, science, and aviation?",["Terminology unification","Term planning"],"Terminology unification"],["Goals and Motivations","Which language-policy goal facilitates communication between people from different speech communities?",["Interlingual communication"],"Interlingual communication"],["Goals and Motivations","Which goal attempts to make texts easier to read by simplifying vocabulary and syntax?",["Stylistic simplification"],"Stylistic simplification"],["Goals and Motivations","Which Nahir goal includes signs for the deaf, place names, and transliteration or transcription rules?",["Auxiliary code standardization","Auxiliary code standardisation"],"Auxiliary code standardization"],["Goals and Motivations","What broad motivation describes a social group wanting to be self-sufficient and autonomous from another?",["Language policy for independence","Independence"],"Language policy for independence"],["Goals and Motivations","What broad motivation describes a social group wanting to connect and belong?",["Language policy for interdependence","Interdependence"],"Language policy for interdependence"],["Policy Orientations","Which Kloss and Wiley orientation allocates resources to support the official use of minority languages?",["Promotion-oriented","Promotion"],"Promotion-oriented"],["Policy Orientations","Which orientation represents a weaker, often short-term resource allocation not intended to broadly expand minority-language use?",["Expediency-oriented","Expediency"],"Expediency-oriented"],["Policy Orientations","Which orientation is characterized by a noticeable absence of state intervention in a language minority's linguistic life?",["Tolerance-oriented","Tolerance"],"Tolerance-oriented"],["Policy Orientations","Which orientation uses legal prohibitions or curtails minority-language use?",["Restrictive-oriented","Restrictive"],"Restrictive-oriented"],["Policy Orientations","Which orientation is defined by the significant absence of policy recognizing minority languages or varieties?",["Null policies","Null policy"],"Null policies"],["Policy Orientations","Which orientation actively tries to eradicate minority languages?",["Repression-oriented","Repression"],"Repression-oriented"],["Policy Orientations","Which Ruiz orientation is associated with maintaining the mother tongue while learning a dominant language?",["Language as a right","Language as right"],"Language as a right"],["Policy Orientations","In the educational policy table, which program type is paired with the expediency orientation?",["Transitional bilingual","Transitional bilingual program"],"Transitional bilingual"],["Policy Orientations","Which orientation is associated in the table with a BIA boarding school program?",["Repression","Repression-oriented"],"Repression-oriented"],["Critical Language Policy","What approach reacts against classic, early, technocratic, or positivist language-planning approaches?",["Critical language policy","CLP"],"Critical language policy (CLP)"],["Critical Language Policy","Which approach in the reviewer is associated with the historical-structural model?",["Critical language policy","Historical-structural approach"],"Critical language policy"],["Critical Language Policy","What question does critical language policy ask to investigate unequal benefits and disadvantages?",["Who benefits and who is left behind","Who really benefits from this policy and who gets left behind","Who benefits"],"Who benefits and who is left behind?"],["Critical Language Policy","What kind of policies does critical language policy seek to develop to address inequality?",["More democratic policies","Democratic policies that reduce inequality"],"More democratic policies that reduce inequality"],["Critical Language Policy","Which kinds of languages does critical language policy seek to help maintain and protect?",["Minority languages","Indigenous and minority languages"],"Minority and Indigenous languages"],["Critical Language Policy","According to the reviewer, language policies can define the limits of what is educationally what?",["Normal or possible","Educationally normal or possible"],"Educationally normal or possible"],["Critical Language Policy","What may schools and teachers internalize that can restrict students' educational and social possibilities?",["Hegemonic ideologies","Hegemony","Dominant ideologies"],"Hegemonic ideologies"],["Critical Language Policy","What can teachers use to open opportunities for learners and challenge disempowering discourses?",["Implementational spaces","Implementational and ideological spaces"],"Implementational spaces"],["Critical Language Policy","What is one way language-policy power is distributed, according to the reviewer?",["Differentially across institutions contexts and layers","Differentially allocated across institutions and contexts"],"Differentially across institutions, contexts, and layers"],["Critical Language Policy","In the reviewer's description, what role can teachers play beyond carrying out policy?",["Language policy arbiters","Policy makers","Policymakers"],"Language policy arbiters and makers"],["Language Ecology & Ideology","What does the ecology-of-language paradigm value and aim to protect?",["Linguistic diversity and all languages","All languages and linguistic diversity"],"Linguistic diversity and all languages"],["Language Ecology & Ideology","What does the diffusion-of-English paradigm emphasize?",["The spread of English","English diffusion"],"The spread of English"],["Language Ecology & Ideology","In the language-ecology framing, what is meant by a language's environment?",["Its sociopolitical economic and cultural surroundings","Sociopolitical, economic, and cultural environments"],"Its sociopolitical, economic, and cultural surroundings"],["Language Ecology & Ideology","According to the reviewer's summary of language ecology, when may a language become endangered in an ecosystem?",["When environmental support is inadequate compared with other languages","Inadequate environmental support"],"When environmental support is inadequate compared with other languages"],["Language Ecology & Ideology","What is a criticism of applying biomorphic metaphors to language ecosystems?",["They may enumerate objectify and biologize languages","They can oversimplify languages"],"They may enumerate, objectify, and biologize languages"],["Language Ecology & Ideology","Which example from Europe is given in the reviewer as a plurilingual educational policy?",["Council of Europe's plurilingual educational policy","Council of Europe plurilingual policy"],"Council of Europe's plurilingual educational policy"],["Educational Language Policy","What does language-in-education policy research focus on in the reviewer's description?",["How schools can marginalize minority languages and their users","The role of schools in marginalizing minority-language users"],"How schools can marginalize minority languages and their users"],["Educational Language Policy","What do language-education policy decisions include beyond decisions explicitly labeled as language policy?",["Language-related decisions made in schools","Decisions in schools beyond explicit language policy"],"Language-related decisions made in schools"],["Educational Language Policy","What does the term language education policies emphasize about educators?",["Their choices and agency in shaping language practices","Educator choices and agency"],"Educators' choices and agency in shaping language practices"],["Educational Language Policy","What does educational language policy include across schools and communities?",["Official and unofficial policies across multiple layers","Official and unofficial policies"],"Official and unofficial policies across multiple layers"],["Educational Language Policy","In the LPP onion metaphor, what does the onion illustrate?",["The multiple layers through which language policy develops","Multiple layers of policy"],"The multiple layers through which language policy develops"],["Educational Language Policy","In the quote used by the reviewer, who is placed at the heart or center of educational language policy?",["The classroom practitioner","Classroom practitioner","Teacher"],"The classroom practitioner"],["Educational Language Policy","Why are teachers described as policy makers rather than only policy implementers?",["Their pedagogical decisions can open or close spaces for language use","They interpret and enact policy through classroom choices"],"Their pedagogical decisions can open or close spaces for language use"],["Educational Language Policy","What does appropriation mean in the reviewer's explanation?",["Taking elements of policy and making them one's own","Taking policy and making it one's own"],"Taking elements of policy and making them one's own"],["Educational Language Policy","Why are top-down and bottom-up labels considered relative?",["A policy's direction depends on the observer's role and level","It depends on one's position in the system"],"A policy's direction depends on the observer's role and level"],["Educational Language Policy","What are two broad levels that researchers should consider together to understand policy processes?",["Macro and micro","Macro-level and micro-level"],"Macro-level and micro-level"],["Educational Language Policy","According to the reviewer, what may prevent a national multilingual policy from becoming multilingual classroom practice?",["A gap between policy creation and implementation","Implementation gaps","Policy implementation gaps and language attitudes"],"Gaps between policy creation and implementation, changing policy, and community language attitudes"],["Educational Language Policy","Why may a locally supported multilingual policy still fail?",["A powerful sociopolitical ideology may be too strong to overcome","A powerful sociopolitical ideology"],"A powerful sociopolitical ideology may be too strong to overcome"],["Inclusion & Exclusion","Which exclusion practice results in stigmatization and exclusion of minority groups?",["Shaming"],"Shaming"],["Inclusion & Exclusion","Which exclusion process treats those who do not conform linguistically as outsiders?",["Othering"],"Othering"],["Inclusion & Exclusion","Which exclusion practice attempts to silence other voices and erase people's power?",["Silencing"],"Silencing"],["Language Ecology & Ideology","Which ideology assumes that one nation should correspond to one language?",["One nation-one language ideology","One nation one language"],"One nation-one language ideology"],["Language Ecology & Ideology","What does linguistic pluralism allow multiple languages to do?",["Be recognized maintained and coexist","Coexist"],"Be recognized, maintained, and coexist"],["Language Ecology & Ideology","What ideology promotes a non-native or global language for wider communication and international development?",["Internationalization","Internationalisation"],"Internationalization"],["Language Ecology & Ideology","What ideology favors the use and development of popular, local language forms?",["Vernacularization","Vernacularisation"],"Vernacularization"],["History / Philippine contexts","Which four language ideologies are named in the reviewer's Philippine-period guide?",["Assimilation, vernacularization, internationalization, and linguistic pluralism","Assimilation vernacularization internationalization linguistic pluralism"],"Assimilation, vernacularization, internationalization, and linguistic pluralism"],["History / Philippine contexts","During the Spanish colonial period, which language was promoted for official administration?",["Spanish"],"Spanish"],["History / Philippine contexts","Which language is named alongside Spanish for religious instruction during the Spanish colonial period?",["Latin"],"Latin"],["History / Philippine contexts","Which language groups were given less importance during the Spanish colonial period in the reviewer?",["Indigenous and regional languages","Indigenous languages","Regional languages"],"Indigenous and regional languages"],["History / Philippine contexts","According to the reviewer's summary, which language was associated with social status during the Spanish colonial period?",["Spanish"],"Spanish"],["History / Philippine contexts","Which groups are listed as benefiting from Spanish colonial language policy?",["Spanish authorities clergy and Ilustrados or elite","Spanish authorities clergy Ilustrados elite","Authorities clergy and elite"],"Spanish authorities, clergy, and the Ilustrado/elite groups"],["History / Philippine contexts","According to the reviewer, who was disadvantaged by Spanish-focused language policy?",["The general population rural communities and non-Spanish speakers","General population rural communities non-Spanish speakers"],"The general population, rural communities, and non-Spanish speakers"],["History / Philippine contexts","How does the reviewer characterize linguistic assimilation during the Spanish colonial period?",["Incomplete or unsuccessful","Incomplete assimilation","Unsuccessful assimilation"],"Incomplete or unsuccessful assimilation"],["History / Philippine contexts","During the Spanish colonial period, what was the main language-related role of missionaries noted in the reviewer?",["Evangelization using Spanish and Latin","Evangelization","Religious instruction"],"Evangelization using Spanish and Latin"],["History / Philippine contexts","During the American colonial period, what language was promoted in public education?",["English"],"English"],["History / Philippine contexts","What kind of schooling system helped spread English during the American colonial period, according to the reviewer?",["A free public education system","Free public education"],"A free public education system"],["History / Philippine contexts","During the American colonial period, what two languages or language groups were given less importance in the reviewer?",["Spanish and indigenous or vernacular languages","Spanish and vernacular languages","Spanish and Indigenous languages"],"Spanish and Indigenous/vernacular languages"],["History / Philippine contexts","What ideas were associated with English during the American colonial period in the reviewer's summary?",["Progress and democracy","Progress, democracy, and advancement"],"Progress and democracy"],["History / Philippine contexts","What opportunities was English associated with during the American colonial period?",["Jobs civil service and advancement","Employment civil service and advancement","Jobs and public service"],"Jobs, civil service, and advancement"],["History / Philippine contexts","Which two broad ideologies are attributed to the American colonial period in the reviewer?",["Assimilation and internationalization","Assimilation and internationalisation"],"Assimilation and internationalization"],["History / Philippine contexts","Which groups are identified as disadvantaged by English-focused policy during the American colonial period?",["Non-English speakers rural populations and Indigenous communities","Non-English speakers rural populations Indigenous language communities"],"Non-English speakers, rural populations, and Indigenous communities"],["History / Philippine contexts","During the American colonial period, what languages does the reviewer's table say remained in use for religion?",["Local languages","Local vernaculars"],"Local languages / vernaculars"],["History / Philippine contexts","During the Commonwealth/Japanese period, what language was promoted as the basis of the national language?",["Tagalog"],"Tagalog"],["History / Philippine contexts","Which language was promoted briefly during the Japanese occupation, according to the reviewer?",["Nippongo","Japanese"],"Nippongo"],["History / Philippine contexts","Which three language groups were given less importance in the Commonwealth/Japanese period summary?",["English Spanish and other regional languages","English Spanish regional languages"],"English, Spanish, and other regional languages"],["History / Philippine contexts","Which constitution designated Tagalog as the basis for the national language, according to the reviewer?",["1935 Constitution","The 1935 Constitution"],"The 1935 Constitution"],["History / Philippine contexts","Which constitution is described in the reviewer as making Tagalog official during the Japanese period?",["1943 Constitution","The 1943 Constitution"],"The 1943 Constitution"],["History / Philippine contexts","What happened to English during the Japanese occupation, according to the reviewer?",["It was de-emphasized","English was de-emphasized"],"English was de-emphasized"],["History / Philippine contexts","Which ideology combination is assigned to the Commonwealth/Japanese period?",["Vernacularization and Tagalog-centered assimilation","Vernacularization and assimilation","Vernacularisation and assimilation"],"Vernacularization and Tagalog-centered assimilation"],["History / Philippine contexts","Which regions or communities are listed as disadvantaged by Tagalog-centered policy?",["Non-Tagalog regions including Visayas Mindanao and Ilocos","Non-Tagalog regions","Visayas Mindanao and Ilocos"],"Non-Tagalog regions, including Visayas, Mindanao, and Ilocos"],["History / Philippine contexts","During the Commonwealth/Japanese period, how was Tagalog framed in relation to national identity?",["As a symbol of sovereignty and unity","Sovereignty and unity"],"As a symbol of sovereignty and unity"],["History / Philippine contexts","Which two languages were promoted during the post-independence/Bilingual Education Policy period?",["Filipino and English","Filipino English"],"Filipino and English"],["History / Philippine contexts","In the reviewer's summary of the Bilingual Education Policy, which subject areas were assigned to Filipino?",["Social sciences and humanities","Social sciences humanities"],"Social sciences and humanities"],["History / Philippine contexts","Which subject areas were assigned to English in the reviewer's summary of the Bilingual Education Policy?",["Mathematics science and technical subjects","Math science technical subjects"],"Mathematics, science, and technical subjects"],["History / Philippine contexts","Which policy years are named alongside the Bilingual Education Policy in the reviewer?",["1974 and 1987","BEP 1974 and 1987 policy"],"BEP 1974 / 1987 Policy"],["History / Philippine contexts","Which article and section of the 1987 Constitution are cited in the reviewer for Filipino and English as official languages?",["Article XIV Section 7","Article 14 section 7","Article XIV Sec 7"],"Article XIV, Section 7"],["History / Philippine contexts","In the post-independence period, what symbolic purpose is associated with Filipino?",["National unity","Filipino as national unity"],"National unity"],["History / Philippine contexts","In the post-independence period, what symbolic purpose is associated with English?",["Global competitiveness","English as global competitiveness"],"Global competitiveness"],["History / Philippine contexts","Who does the reviewer identify as potentially disadvantaged by post-independence bilingual education?",["Early learners and students whose home language is neither Filipino nor English","Early learners and learners whose home language is neither","Marginalized language groups"],"Early learners, students whose home language is neither, and marginalized language groups"],["History / Philippine contexts","During the post-independence bilingual period, how were regional or local vernaculars often used, according to the reviewer?",["Informally or as auxiliary languages","Informal or auxiliary use","Informally"],"Informally or as auxiliary languages"],["History / Philippine contexts","Which approach is identified as the focus of the reviewer's fifth group, concerning mother tongue and regional languages?",["Mother Tongue-Based Multilingual Education","MTB-MLE","Mother Tongue Based Multilingual Education"],"Mother Tongue-Based Multilingual Education (MTB-MLE)"],["History / Philippine contexts","Under the reviewer's MTB-MLE summary, what is the medium of instruction in the early grades?",["The mother tongue","Mother tongue","Regional languages"],"The mother tongue"],["History / Philippine contexts","What grade range does the reviewer associate with mother-tongue-medium instruction under RA 10533?",["Grades 1 to 3","Grades 1-3","Grade 1 to 3"],"Grades 1–3"],["History / Philippine contexts","Which law is cited in the reviewer for the MTB-MLE approach?",["Republic Act 10533","RA 10533","RA10533"],"RA 10533 (2013)"],["History / Philippine contexts","How many major languages does the reviewer say DepEd uses in the MTB-MLE summary?",["19","19 major languages","Nineteen"],"19 major languages"],["History / Philippine contexts","After the early mother-tongue years, which languages are phased in progressively in the reviewer's MTB-MLE summary?",["Filipino and English","Filipino English"],"Filipino and English"],["History / Philippine contexts","Which two ideologies are associated with MTB-MLE in the reviewer's final page?",["Vernacularization and linguistic pluralism","Vernacularisation and linguistic pluralism","Vernacularization and pluralism"],"Vernacularization and linguistic pluralism"],["History / Philippine contexts","What challenge is listed for MTB-MLE despite its benefits?",["Limited teaching materials and fewer trained teachers in regional languages","Limited materials and teacher training"],"Limited teaching materials, fewer trained teachers, and transition challenges"],["History / Philippine contexts","What does beginning education in a child's known language do in the reviewer's account of language and power?",["It can empower communities and redistribute power","Empowers communities","Redistributes educational power"],"It can empower communities, though structural inequalities and resource gaps remain"],["History / Philippine contexts","Which language policy period is described as treating the colonizer's language as a gateway to opportunity while local languages were seen as obstacles?",["American colonial period","American period"],"American colonial period"],["History / Philippine contexts","Which period is summarized as using language policy as an instrument of colonial control, with fluency granting status and power?",["Spanish colonial period","Spanish period"],"Spanish colonial period"],["History / Philippine contexts","Which period's reviewer summary says language became a tool of self-determination, while one dominant national language still marginalized diversity?",["Commonwealth/Japanese period","Commonwealth and Japanese period"],"Commonwealth/Japanese period"],["History / Philippine contexts","What does the reviewer's post-independence summary say Filipino and English represent as two spheres of power?",["National unity and global participation","National unity and global competitiveness"],"National unity and global participation"],["History / Philippine contexts","In the reviewer's guide, what kinds of evidence can support a classification of a historical language policy?",["Policy documents and historical evidence","Policy texts constitutions and decrees","Evidence from the policy"],"Evidence from policy texts and historical records"],["History / Philippine contexts","When analyzing a historical language policy, what should be identified besides the promoted language?",["Languages given less importance","Languages marginalized"],"Languages given less importance or marginalized"],["History / Philippine contexts","What relationship between language and power should historical policy analysis explain?",["Who benefited and who was disadvantaged","Benefits and disadvantages","Who benefited and who experienced disadvantages"],"Who benefited, who was disadvantaged, and how language related to power"],["History / Philippine contexts","Which ideology best describes replacing local languages with one dominant language so people can function in it?",["Linguistic assimilation","Assimilation"],"Linguistic assimilation"],["History / Philippine contexts","Which ideology is most compatible with allowing several languages to serve different functions in a school?",["Linguistic pluralism","Pluralism"],"Linguistic pluralism"],["History / Philippine contexts","Which ideology fits a government encouraging a globally dominant language for international trade?",["Internationalization","Internationalisation"],"Internationalization"],["History / Philippine contexts","Which ideology fits a government developing an Indigenous language for official use and standardized teaching materials?",["Vernacularization","Vernacularisation"],"Vernacularization"],["History / Philippine contexts","Which ideology fits a school requiring English because it is seen as necessary for global employment?",["Linguistic assimilation and internationalization","Assimilation and internationalization","Internationalization"],"Linguistic assimilation and internationalization"],["History / Philippine contexts","Which ideology combination best fits a school allowing Filipino, English, and regional languages to serve different functions?",["Linguistic pluralism","Pluralism"],"Linguistic pluralism"],["History / Philippine contexts","Which regional or Indigenous language policy examples outside the Philippines are named on the reviewer page?",["Puno bilingual education project Bolivia's National Education Reform of 1994 and Māori Language Act of 1987","Puno Bolivia 1994 and Maori Language Act 1987"],"The Puno bilingual education project, Bolivia's 1994 National Education Reform, and the Māori Language Act of 1987"]]).map(([t,q,a,e])=>({t,q,a,e})));
+
+const $ = id => document.getElementById(id);
+const normalize = value => String(value).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/&/g, " and ").replace(/[^a-z0-9]+/g, " ").trim();
+let pool = [...questions];
+let index = 0;
+let score = 0;
+let attempted = 0;
+let locked = false;
+let complete = false;
+let revealed = 0;
+let selectedChoice = null;
+let displayedChoices = [];
+
+function currentQuestion(){ return pool[index]; }
+function currentMode(){ return $("modeSelect").value; }
+function updateStats(){
+  $("scoreStat").textContent = score;
+  $("attemptStat").textContent = attempted;
+  const done = complete ? pool.length : index;
+  const pct = Math.round(done / Math.max(pool.length, 1) * 100);
+  $("bar").style.width = pct + "%";
+  $("progressLabel").textContent = pct + "%";
+  $("progressTrack").setAttribute("aria-valuenow", String(pct));
+  $("status").textContent = complete ? "Session complete" : `Question ${index + 1} of ${pool.length}`;
+  $("qIndex").textContent = complete ? pool.length : index + 1;
+  $("qTotal").textContent = pool.length;
+}
+function setFeedback(kind, heading, body){
+  const box = $("feedback");
+  const icons = {good:"✓", bad:"!", neutral:"✦"};
+  box.className = `feedback show ${kind}`;
+  box.innerHTML = `<span class="feedback-icon" aria-hidden="true">${icons[kind] || "✦"}</span><div class="feedback-copy"><strong>${heading}</strong>${body}</div>`;
+}
+function clearFeedback(){ $("feedback").className = "feedback"; $("feedback").replaceChildren(); }
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+}
+function getDistractors(item){
+  const ownAliases = new Set([...(item.a||[]),item.e].map(normalize));
+  const sameTopic = questions.filter(q => q !== item && q.t === item.t && !ownAliases.has(normalize(q.e)));
+  const global = questions.filter(q => q !== item && !ownAliases.has(normalize(q.e)));
+  const seen = new Set();
+  const choices = [];
+  // Prefer concepts from the same topic, but keep all choices unique.
+  for(const candidate of [...shuffleArray([...sameTopic]),...shuffleArray([...global])]){
+    const label = String(candidate.e||"").trim();
+    const key = normalize(label);
+    if(!label || !key || ownAliases.has(key) || seen.has(key)) continue;
+    seen.add(key); choices.push(label);
+    if(choices.length===3) break;
+  }
+  return choices;
+}
+function shuffleArray(arr){
+  for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
+  return arr;
+}
+function renderChoices(){
+  const item=currentQuestion();
+  const correctLabel=item.e;
+  const correctKey=normalize(correctLabel);
+  const distractors=getDistractors(item).filter(label=>normalize(label)!==correctKey);
+  displayedChoices=shuffleArray([{label:correctLabel,correct:true},...distractors.slice(0,3).map(label=>({label,correct:false}))]);
+  selectedChoice=null;
+  const container=$("choices");
+  container.replaceChildren();
+  const letters=["A","B","C","D"];
+  displayedChoices.forEach((choice,i)=>{
+    const button=document.createElement("button");
+    button.type="button";button.className="choice-option";button.dataset.index=String(i);button.setAttribute("aria-pressed","false");
+    const letter=document.createElement("span");letter.className="choice-letter";letter.setAttribute("aria-hidden","true");letter.textContent=letters[i];
+    const text=document.createElement("span");text.className="choice-text";text.textContent=choice.label;
+    button.append(letter,text);button.addEventListener("click",()=>selectChoice(i));container.append(button);
+  });
+}
+function selectChoice(i){
+  if(locked || complete)return;
+  selectedChoice=i;
+  [...$("choices").querySelectorAll(".choice-option")].forEach((button,j)=>{
+    button.classList.toggle("selected",j===i);button.setAttribute("aria-pressed",String(j===i));
+  });
+  clearFeedback();
+}
+function syncModeUI(){
+  const multiple=currentMode()==="multiple";
+  $("modeLabel").textContent=multiple?"Multiple-choice mode":"Identification mode";
+  $("questionKicker").textContent=multiple?"Choose the best answer":"Name the term or theorist";
+  document.querySelector(".answer-label").style.display=multiple?"none":"flex";
+  document.querySelector(".answer-wrap").style.display=multiple?"none":"flex";
+  $("answerHelp").style.display=multiple?"none":"flex";
+  $("choices").hidden=!multiple;
+  $("answer").placeholder=multiple?"Choose an option below…":"Start typing here…";
+}
+function render(animate = true){
+  complete=false;locked=false;
+  const item=currentQuestion();
+  const card=$("quizCard");
+  if(animate){card.classList.remove("swap");void card.offsetWidth;card.classList.add("swap");}
+  $("category").textContent=item.t;
+  $("prompt").textContent=item.q;
+  $("questionNumber").textContent=String(index+1).padStart(2,"0");
+  $("answer").value="";$("answer").disabled=false;
+  $("check").disabled=false;$("reveal").disabled=false;$("next").disabled=true;
+  $("next").innerHTML=`Next question <span aria-hidden="true">→</span>`;
+  syncModeUI();
+  if(currentMode()==="multiple") renderChoices(); else { $("choices").replaceChildren(); displayedChoices=[]; selectedChoice=null; }
+  [...$("choices").querySelectorAll(".choice-option")].forEach(b=>b.disabled=false);
+  clearFeedback();updateStats();
+  if(!complete && currentMode()==="identification" && window.matchMedia("(min-width: 681px)").matches) $("answer").focus({preventScroll:true});
+}
+function isCorrect(value, accepted){
+  const answer=normalize(value);if(!answer)return false;
+  return accepted.map(normalize).some(key=>key && (answer===key || (` ${answer} `).includes(` ${key} `)));
+}
+function checkAnswer(){
+  if(locked||complete)return;
+  const multiple=currentMode()==="multiple";
+  if(multiple && selectedChoice===null){setFeedback("neutral","Pick an option first","Choose the answer you think is correct, then check it.");return;}
+  const value=$("answer").value.trim();
+  if(!multiple&&!value){setFeedback("neutral","Your answer goes here","Type your best guess first, or reveal the answer if you need a hint.");$("answer").focus();return;}
+  const item=currentQuestion();
+  const correct=multiple?Boolean(displayedChoices[selectedChoice]?.correct):isCorrect(value,item.a);
+  attempted++;locked=true;
+  $("answer").disabled=true;$("check").disabled=true;$("reveal").disabled=true;$("next").disabled=false;
+  if(multiple){
+    [...$("choices").querySelectorAll(".choice-option")].forEach((button,i)=>{
+      button.disabled=true;
+      if(displayedChoices[i].correct)button.classList.add("correct-choice");
+      else if(i===selectedChoice)button.classList.add("wrong-choice");
+    });
+  }
+  if(correct){score++;setFeedback("good","That's right!",`Answer: <div class="answerkey">${escapeHTML(item.e)}</div>`);}
+  else setFeedback("bad","Not quite — keep going.",`Correct answer: <div class="answerkey">${escapeHTML(item.e)}</div>`);
+  updateStats();
+  const pct=Math.round((index+1)/Math.max(pool.length,1)*100);
+  $("bar").style.width=pct+"%";$("progressLabel").textContent=pct+"%";$("progressTrack").setAttribute("aria-valuenow",String(pct));
+}
+function revealAnswer(){
+  if(locked||complete)return;
+  locked=true;revealed++;
+  $("answer").disabled=true;$("check").disabled=true;$("reveal").disabled=true;$("next").disabled=false;
+  if(currentMode()==="multiple"){
+    [...$("choices").querySelectorAll(".choice-option")].forEach((button,i)=>{button.disabled=true;if(displayedChoices[i].correct)button.classList.add("correct-choice");});
+  }
+  setFeedback("neutral","Here's the answer",`<div class="answerkey">${escapeHTML(currentQuestion().e)}</div><div>Read it once, then continue when you're ready.</div>`);
+}
+function showComplete(){
+  complete=true;locked=true;
+  $("category").textContent="Session complete";$("questionNumber").textContent="✓";$("prompt").textContent="Nice work. You made it through this review session.";
+  $("answer").value="";$("answer").disabled=true;$("answer").style.display="none";
+  document.querySelector(".answer-label").style.display="none";document.querySelector(".answer-wrap").style.display="none";$("answerHelp").style.display="none";$("choices").hidden=true;
+  $("check").style.display="none";$("reveal").style.display="none";$("next").disabled=false;$("next").innerHTML=`↻ Review again`;
+  $("feedback").className="feedback show neutral";
+  const ratio=attempted?Math.round(score/attempted*100):0;
+  const message=attempted===0?"You explored the questions without checking any answers yet.":`You answered ${attempted} question${attempted===1?"":"s"} and got ${score} correct (${ratio}%).`;
+  $("feedback").innerHTML=`<span class="feedback-icon" aria-hidden="true">✦</span><div class="feedback-copy"><strong>Session wrapped up</strong>${escapeHTML(message)}<div class="completion-score">Final score<br><strong>${score} / ${attempted}</strong></div><span>Revisit any topic or start a fresh round to keep practicing.</span></div>`;
+  updateStats();$("bar").style.width="100%";$("progressLabel").textContent="100%";$("progressTrack").setAttribute("aria-valuenow","100");$("status").textContent="Session complete";
+}
+function restoreControls(){
+  $("answer").style.display="";document.querySelector(".answer-label").style.display="";document.querySelector(".answer-wrap").style.display="";$("answerHelp").style.display="";
+  $("check").style.display="";$("reveal").style.display="";$("next").classList.add("next-btn");
+}
+function nextQuestion(){
+  if(complete){restart();return;}if(!locked)return;
+  if(index<pool.length-1){index++;render();}else showComplete();
+}
+function buildPool(){
+  const topic=$("topic").value;
+  const filtered=topic==="all"?[...questions]:questions.filter(q=>q.t===topic);
+  pool=filtered.length?filtered:[...questions];
+}
+function restart(){
+  buildPool();index=0;score=0;attempted=0;revealed=0;complete=false;restoreControls();render(false);
+}
+function shuffle(){
+  buildPool();shuffleArray(pool);index=0;score=0;attempted=0;revealed=0;complete=false;restoreControls();render();
+}
+function setupTopics(){
+  [...new Set(questions.map(item=>item.t))].forEach(topic=>{const option=document.createElement("option");option.value=topic;option.textContent=topic;$("topic").appendChild(option);});
+}
+setupTopics();
+$("qTotal").textContent=questions.length;
+$("status").textContent=`Question 1 of ${questions.length}`;
+render(false);
+$("check").addEventListener("click",checkAnswer);
+$("reveal").addEventListener("click",revealAnswer);
+$("next").addEventListener("click",nextQuestion);
+$("reset").addEventListener("click",restart);
+$("shuffle").addEventListener("click",shuffle);
+$("topic").addEventListener("change",restart);
+$("modeSelect").addEventListener("change",restart);
+$("answer").addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();if(!locked)checkAnswer();else nextQuestion();}});
+
+</script>
+</body>
+</html>
